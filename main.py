@@ -3,6 +3,14 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    name: str
+    price: float
+    is_offer: Union[bool, None] = None
+
 
 app = FastAPI()
 FAVICON_PATH = 'favicon.ico'
@@ -19,5 +27,10 @@ def root():
 
 
 @app.get('/items/{item_id}')
-def items_detail(item_id: int, q: Union[str, None] = None):
+def read_item(item_id: int, q: Union[str, None] = None):
     return {'message': f'this is {item_id}', 'q': q}
+
+
+@app.put('/items/{item_id}')
+def update_item(item_id: int, item: Item):
+    return {'item name': item.name, 'item id': item_id}
