@@ -13,11 +13,11 @@ async def favicon():
     return FileResponse(FAVICON_PATH)
 
 
-@app.get("/")
+@app.get('/')
 def root():
-    return {"message": "hello"}
+    return {'message': 'hello'}
 
 
-@app.get("/items/{item_id}")
+@app.get('/items/{item_id}')
 def items_detail(item_id: int, q: Union[str, None] = None):
-    return {"message": f"this is {item_id}", "q": q}
+    return {'message': f'this is {item_id}', 'q': q}
